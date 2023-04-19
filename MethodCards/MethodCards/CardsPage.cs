@@ -14,18 +14,14 @@ namespace MethodCards
         List<Label> labels = new List<Label>();
         List<string> rusList, engList;
 
-        string fileName = "myFile.txt";
-        string text;
+        string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         public CardsPage(List<string> list1, List<string> list2)
         {
             BackgroundColor = Color.White;
             engList = list1;
             rusList = list2;
 
-            string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), fileName);
-            //text = "adwa";
-            //File.WriteAllText(filePath, text);
-            //text = File.ReadAllText(filePath);
+            
 
             foreach (var item in engList)
             {
