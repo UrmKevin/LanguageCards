@@ -1,0 +1,3 @@
+﻿apple:õun;
+table:laud;
+sun:päike;

@@ -12,7 +12,7 @@ namespace MethodCards
     public partial class MainPage : ContentPage
     {
         List<string> engList = new List<string> { "apple", "table", "sun" };
-        List<string> rusList = new List<string> { "яблоко", "стол", "солнце" };
+        List<string> rusList = new List<string> { "õun", "laud", "päike" };
         StackLayout st;
         public MainPage()
         {

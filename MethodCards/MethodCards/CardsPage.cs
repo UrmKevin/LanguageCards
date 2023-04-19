@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using Xamarin.Forms;
+using System.IO;
+using Xamarin.Essentials;
 
 namespace MethodCards
 {
@@ -11,11 +13,20 @@ namespace MethodCards
     {
         List<Label> labels = new List<Label>();
         List<string> rusList, engList;
+
+        string fileName = "myFile.txt";
+        string text;
         public CardsPage(List<string> list1, List<string> list2)
         {
             BackgroundColor = Color.White;
             engList = list1;
             rusList = list2;
+
+            string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), fileName);
+            //text = "adwa";
+            //File.WriteAllText(filePath, text);
+            //text = File.ReadAllText(filePath);
+
             foreach (var item in engList)
             {
                 labels.Add(new Label
@@ -30,7 +41,7 @@ namespace MethodCards
                     TextColor = Color.White,
                     VerticalTextAlignment = TextAlignment.Center,
                     HorizontalTextAlignment = TextAlignment.Center,
-                    Text = item
+                    Text = text
                 });
             }
             for (int i = 0; i < engList.Count; i++)
