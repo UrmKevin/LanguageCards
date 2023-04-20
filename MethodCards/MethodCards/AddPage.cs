@@ -4,20 +4,20 @@ using System.Linq;
 using System.Text;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using System.IO;
 
 namespace MethodCards
 {
     public class AddPage : ContentPage
     {
         StackLayout st;
-        List<string> engList, rusList;
         Label engLabel, rusLabel;
         Editor engEditor, rusEditor;
         Button btn;
-        public AddPage(List<string> engList, List<string> rusList)
+        string filePath;
+        public AddPage(string fileP)
         {
-            this.engList = engList;
-            this.rusList = rusList;
+            this.filePath = fileP;
             BackgroundColor = Color.White;
             engLabel = new Label
             {
@@ -62,8 +62,8 @@ namespace MethodCards
 
         private async void Btn_Clicked(object sender, EventArgs e)
         {
-            engList.Add(engEditor.Text);
-            rusList.Add(rusEditor.Text);
+            string text = engEditor.Text + ":" + rusEditor.Text + ";";
+            File.AppendAllText(filePath, text);
             await Navigation.PopAsync();
         }
     }

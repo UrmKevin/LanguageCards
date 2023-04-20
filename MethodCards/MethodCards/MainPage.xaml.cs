@@ -6,16 +6,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using static Xamarin.Essentials.Permissions;
+using System.IO;
 
 namespace MethodCards
 {
     public partial class MainPage : ContentPage
     {
-        List<string> engList = new List<string> { "apple", "table", "sun" };
-        List<string> rusList = new List<string> { "õun", "laud", "päike" };
         StackLayout st;
+        string fileName = "myFile.txt";
+        string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        string filePath;
         public MainPage()
         {
+            filePath = Path.Combine(folderPath, fileName);
             BackgroundColor = Color.White;
             Button cards = new Button
             {
@@ -42,22 +45,22 @@ namespace MethodCards
 
         private async void Add_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new AddPage(engList, rusList));
+            await Navigation.PushAsync(new AddPage(filePath));
         }
 
         private async void Cards_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new CardsPage(engList, rusList));
+            await Navigation.PushAsync(new CardsPage(filePath));
         }
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
+        //protected override void OnAppearing()
+        //{
+        //    base.OnAppearing();
 
-            if (Application.Current.Properties.ContainsKey("engList"))
-            {
-                engList = (List<string>)Application.Current.Properties["engList"];
-                rusList = (List<string>)Application.Current.Properties["rusList"];
-            }
-        }
+        //    if (Application.Current.Properties.ContainsKey("engList"))
+        //    {
+        //        engList = (List<string>)Application.Current.Properties["engList"];
+        //        rusList = (List<string>)Application.Current.Properties["rusList"];
+        //    }
+        //}
     }
 }

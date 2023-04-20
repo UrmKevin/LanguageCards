@@ -12,35 +12,39 @@ namespace MethodCards
     public class CardsPage : CarouselPage
     {
         List<Label> labels = new List<Label>();
-        List<string> rusList, engList;
-
-        string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        public CardsPage(List<string> list1, List<string> list2)
+        string filePath;
+        string text;
+        string[] words;
+        string[] pair;
+        public CardsPage(string fileP)
         {
             BackgroundColor = Color.White;
-            engList = list1;
-            rusList = list2;
+            filePath = fileP;
+            //File.WriteAllText(filePath, "Car:Auto;Apple:Õun;Table:Laud;");
+            text = File.ReadAllText(filePath);
+            pair = text.Split(';');
+            int length = pair.Length;
 
-            
-
-            foreach (var item in engList)
+            for (int i = 0; i < length-1; i++)
             {
+                string splitit = pair[i];
+                words = splitit.Split(':');
                 labels.Add(new Label
                 {
                     VerticalOptions = LayoutOptions.CenterAndExpand,
                     HorizontalOptions = LayoutOptions.CenterAndExpand,
                     HeightRequest = 200,
-                    WidthRequest = 200,
+                    WidthRequest = 280,
                     FontSize = 35,
                     FontAttributes = FontAttributes.Bold,
                     BackgroundColor = Color.DarkGray,
                     TextColor = Color.White,
                     VerticalTextAlignment = TextAlignment.Center,
                     HorizontalTextAlignment = TextAlignment.Center,
-                    Text = text
-                });
+                    Text = words[0]
+            });
             }
-            for (int i = 0; i < engList.Count; i++)
+            for (int i = 0; i < length-1; i++)
             {
                 var page = new ContentPage
                 {
@@ -59,17 +63,23 @@ namespace MethodCards
                 Children.Add(page);
             }
         }
-
+        bool tf = true;
         private void Tap_Tapped(object sender, EventArgs e)
         {
             var lbl = sender as Label;
-            if (lbl.Text == engList[lbl.TabIndex])
+            if (tf == true)
             {
-                lbl.Text = rusList[lbl.TabIndex];
+                string splitit = pair[lbl.TabIndex];
+                words = splitit.Split(':');
+                lbl.Text = words[1];
+                tf = false;
             }
             else
             {
-                lbl.Text = engList[lbl.TabIndex];
+                string splitit = pair[lbl.TabIndex];
+                words = splitit.Split(':');
+                lbl.Text = words[0];
+                tf = true;
             }
         }
     }
